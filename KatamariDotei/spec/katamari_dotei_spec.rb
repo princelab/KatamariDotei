@@ -1,5 +1,4 @@
-require "#{File.dirname($0)}/spec_helper"
-require "#{File.dirname($0)}/../lib/katamari_dotei"
+require File.dirname(__FILE__) + '/spec_helper'
 
 describe 'KatamariDotei' do
   

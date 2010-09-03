@@ -1,8 +1,7 @@
 #!/usr/bin/ruby
 
 Sample = Struct.new(:mzml, :mgfs, :searches, :percolator, :combined)
-$path = "#{File.expand_path(File.dirname(__FILE__))}/"
-$: << $path
+$path = "#{File.expand_path(File.dirname(__FILE__))}/.."
 
 require "raw_to_mzml"
 require "mzml_to_other"
@@ -26,7 +25,7 @@ class KatamariDotei
     @files = files
     @dbID = dbID
     @dataPath = File.expand_path("#{$path}../data/") + "/"
-    $config = Nokogiri::XML(IO.read(config))
+    @config = Nokogiri::XML(IO.read(config))
   end
   
   # Begins and runs the pipeline process.
@@ -43,6 +42,7 @@ class KatamariDotei
       puts "\nCommencing work on #{fileName}"
       samples[fileName] = Sample.new(fileName, [], [], [], [])
       iterations = get_iterations
+      p iterations
       
       create_mzML(mzType, file)
       
@@ -88,7 +88,7 @@ class KatamariDotei
     array = []
     i = 0
     
-    $config.xpath("//Iteration").each do |x|
+    @config.xpath("//Iteration").each do |x|
       array << [x.xpath("./@run").to_s, x.xpath("./@enzyme").to_s, i]
       i += 1
     end
@@ -118,20 +118,8 @@ class KatamariDotei
   
   # Displays a randomly chosen exclamation of joy.
   def tell_the_user_that_the_program_has_like_totally_finished_doing_its_thang_by_calling_this_butt_long_method_name_man
-    done = rand(13)
-    puts "\nBoo-yah!" if done == 0
-    puts "\nOh-yeah!" if done == 1
-    puts "\nYah-hoo!" if done == 2
-    puts "\nYeah-yuh!" if done == 3
-    puts "\nRock on!" if done == 4
-    puts "\n^_^" if done == 5
-    puts "\nRadical!" if done == 6
-    puts "\nAwesome!" if done == 7
-    puts "\nTubular!" if done == 8
-    puts "\nYay!" if done == 9
-    puts "\nGnarly!" if done == 10
-    puts "\nSweet!" if done == 11
-    puts "\nGroovy!" if done == 12
+    exclaim = ["Boo-yah!", "Oh-yeah!", "Yah-hoo!", "Yeah-yuh!", "Rock on!", "^_^", "Radical!", "Awesome!", "Tubular!", "Yay!", "Gnarly!", "Sweet!", "Groovy!"]
+    puts "\n" + exclaim[rand(exclaim.size)]
     puts "--------------------------------\n"
   end
 end

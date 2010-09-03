@@ -4,6 +4,7 @@
 # @author Jesse Jashinsky (Aug 2010)
 # @todo Create specialized statistical function for combining files. Currently employs averaging.
 class Combiner
+
   # @param [Array(String)] files Percolator.run output
   # @param [String] raw_name the name of the raw file
   # @param [String] run the run or iteration
@@ -24,7 +25,9 @@ class Combiner
     combined_hits = recalculate(all_hits)
     combined_hits = combined_hits.sort_by {|x| [x[0], x[4]]}
     
-    combined_file = "#{$path}../data/results/#{@raw_name}_combined_#{@run}.psms"
+    combined_file = "#{$path}/data/results/#{@raw_name}_combined_#{@run}.psms"
+    p combined_file
+    abort 'here'
     File.open(combined_file, "w") do |file|
       combined_hits.each {|hit| file.print hit.join("\t") + "\n"}
     end
@@ -104,7 +107,4 @@ class Combiner
     combined_hits
   end
   
-  # Takes some input, does some crazy math function, and outputs some answer.
-  def crazy_math_function
-  end
 end
