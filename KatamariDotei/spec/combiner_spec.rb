@@ -4,8 +4,7 @@ require "combiner"
 describe 'Combiner' do
   before do
     path = SPEC_DIR + "/test_files"
-    files1 = ["#{path}/test_1_omssa.psms", "#{path}/test_1_tandem.psms", "#{path}/test_1_tide.psms", "#{path}/test_1_mascot.psms"]
-    
+    files1 = %w(test_1_omssa test_1_tandem test_1_tide test_1_mascot).map {|v| path + v + ".psms" }
     @c1 = Combiner.new(files1, "test", "1")
   end
   
